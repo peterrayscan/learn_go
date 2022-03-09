@@ -1,41 +1,59 @@
-package client
+package main
 
 import (
 	"bufio"
+	"errors"
 	"fmt"
+	"io"
+	"learn/tools/timex"
 	"net"
 	"os"
 	"strings"
 )
 
-// 客户端
-func Run() {
+// Client
+func main() {
 	conn, err := net.Dial("tcp", "127.0.0.1:20000")
 	if err != nil {
-		fmt.Println("net.Dial failed, err: ", err)
+		fmt.Println("Client: net.Dial, failed with err: ", err)
 		return
 	}
+	fmt.Println("Client: TCP connection connected now:", timex.GetNowString())
 	defer conn.Close() // 关闭连接
-	fmt.Println("connected!")
+
 	inputReader := bufio.NewReader(os.Stdin)
 	for {
-		fmt.Print("please input: ")
-		input, _ := inputReader.ReadString('\n') // 读取用户输入
-		inputInfo := strings.Trim(input, "\r\n")
-		if strings.ToUpper(inputInfo) == "Q" { // 如果输入q就退出
-			fmt.Println("quit already")
-			return
-		}
-		_, err = conn.Write([]byte(inputInfo)) // 发送数据
+		fmt.Print("Client: please input: ")
+		inputContent, err := inputReader.ReadString('\n') // 读取用户输入
 		if err != nil {
+			fmt.Println("Client: read from console, failed with err: ", err)
 			return
 		}
-		buf := [512]byte{}
-		n, err := conn.Read(buf[:])
+
+		reqData := strings.Trim(inputContent, "\r\n")
+		if strings.ToUpper(reqData) == "Q" { // 如果输入q/Q, 就退出
+			fmt.Println("Client: ready to quit")
+			break
+		}
+
+		_, err = conn.Write([]byte(reqData)) // 向连接, 发送请求数据
 		if err != nil {
-			fmt.Println("recv failed, err: ", err)
+			fmt.Println("Client: connection write data, failed with err: ", err)
 			return
 		}
-		fmt.Println("client端: 收到server端，返回的数据=", string(buf[:n]))
+
+		rspBuf := [512]byte{}
+		n, err := conn.Read(rspBuf[:])
+		if err != nil {
+			if errors.Is(err, io.EOF) {
+				fmt.Println("Client: TCP connection, Server quit already!")
+				break
+			}
+			fmt.Println("Client: connection receive data, failed with err: ", err)
+			return
+		}
+
+		fmt.Println("Client: connection receive data from Server: ", string(rspBuf[:n]))
 	}
+	fmt.Println("Client: quit already:", timex.GetNowString())
 }

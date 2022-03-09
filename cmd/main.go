@@ -1,14 +1,15 @@
 package main
 
 import (
+	"learn/playground"
 	"learn/tools/console"
 )
 
 func main() {
 	console.Clear()
-	// tcp.RunTcp()
 
 	// resources.NewResources()
 
 	// playground.FormatStringTime()
+	playground.FormatTimeOutput()
 }
