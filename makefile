@@ -11,3 +11,14 @@ run_tcp_c:
 
 run_tcp_s:
 	./bin/socket/tcp/server
+
+build_udp:
+	mkdir -p ./bin/socket/udp
+	go build -o ./bin/socket/udp ./demos/socket/udp/client
+	go build -o ./bin/socket/udp ./demos/socket/udp/server
+
+run_udp_c:
+	./bin/socket/udp/client
+
+run_udp_s:
+	./bin/socket/udp/server

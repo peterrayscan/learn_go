@@ -11,5 +11,6 @@ func main() {
 	// resources.NewResources()
 
 	// playground.FormatStringTime()
-	playground.FormatTimeOutput()
+	// playground.FormatTimeOutput()
+	playground.SwitchCase("y")
 }
