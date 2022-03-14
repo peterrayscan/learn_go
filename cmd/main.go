@@ -12,5 +12,7 @@ func main() {
 
 	// playground.FormatStringTime()
 	// playground.FormatTimeOutput()
-	playground.SwitchCase("y")
+	// playground.SwitchCase("y")
+	// playground.GoroutineGetFromChan()
+	playground.TimeOutAfter(1)
 }

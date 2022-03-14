@@ -32,3 +32,13 @@ func FormatTimeOutput() {
 	format := "2006-01-02 15:04:05.000000000"
 	fmt.Println("now is: ", time.Now().Format(format))
 }
+
+func TimeOutAfter(seconds int) {
+	for range time.Tick(2 * time.Second) {
+		fmt.Println("xxx")
+	}
+	// fmt.Println(time.Now())
+	// after := <-time.After(time.Duration(seconds) * time.Second)
+	// fmt.Println("xxx")
+	// fmt.Println(after)
+}
