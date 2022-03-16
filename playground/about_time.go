@@ -33,12 +33,16 @@ func FormatTimeOutput() {
 	fmt.Println("now is: ", time.Now().Format(format))
 }
 
-func TimeOutAfter(seconds int) {
-	for range time.Tick(2 * time.Second) {
-		fmt.Println("xxx")
+func TimerTimeOut() {
+	timeout := time.After(3 * time.Second)
+	for {
+		select {
+		case <-timeout:
+			fmt.Println("timeout")
+			return
+		default:
+			fmt.Println("default, now:", time.Now())
+		}
+		time.Sleep(1 * time.Second)
 	}
-	// fmt.Println(time.Now())
-	// after := <-time.After(time.Duration(seconds) * time.Second)
-	// fmt.Println("xxx")
-	// fmt.Println(after)
 }
