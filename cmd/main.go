@@ -14,5 +14,7 @@ func main() {
 	// playground.FormatTimeOutput()
 	// playground.SwitchCase("y")
 	// playground.GoroutineGetFromChan()
-	playground.TimerTimeOut()
+	// playground.TimeOutVersion1()
+	// playground.TimeOutVersion2()
+	playground.TimeOutVersion3()
 }

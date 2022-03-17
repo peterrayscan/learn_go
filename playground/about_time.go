@@ -1,7 +1,9 @@
 package playground
 
 import (
+	"context"
 	"fmt"
+	"learn/tools/timex"
 	"time"
 )
 
@@ -33,7 +35,8 @@ func FormatTimeOutput() {
 	fmt.Println("now is: ", time.Now().Format(format))
 }
 
-func TimerTimeOut() {
+// time.After 实现
+func TimeOutVersion1() {
 	timeout := time.After(3 * time.Second)
 	for {
 		select {
@@ -41,8 +44,62 @@ func TimerTimeOut() {
 			fmt.Println("timeout")
 			return
 		default:
-			fmt.Println("default, now:", time.Now())
+			fmt.Println("default, now:", timex.GetNowString())
 		}
 		time.Sleep(1 * time.Second)
+	}
+}
+
+// time.After 实现
+func TimeOutVersion2() {
+	ch := make(chan struct{}, 1)
+	go func() {
+		var x int
+		for {
+			fmt.Println("x is", x)
+			fmt.Println("do sth in another goroutinue")
+			time.Sleep(1 * time.Second)
+			if x == 3 {
+				ch <- struct{}{}
+				return
+			}
+			x++
+		}
+	}()
+
+	select {
+	case <-ch:
+		fmt.Println("finish job")
+	case <-time.After(5 * time.Second):
+		fmt.Println("timeout")
+	}
+}
+
+// context.WithTimeout 实现
+func TimeOutVersion3() {
+	timeOutCtx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	ch := make(chan struct{}, 1)
+	go func() {
+		var x int
+		for {
+			fmt.Println("x is", x)
+			fmt.Println("do sth in another goroutinue")
+			time.Sleep(1 * time.Second)
+			if x == 8 {
+				ch <- struct{}{}
+				return
+			}
+			x++
+		}
+	}()
+
+	select {
+	case <-ch:
+		fmt.Println("finish job")
+	case <-timeOutCtx.Done():
+		fmt.Println("timeout")
+		fmt.Println("timeout err:", timeOutCtx.Err())
 	}
 }
