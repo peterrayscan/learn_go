@@ -1,8 +1,8 @@
-package test
+package testx
 
 import "learn/tools/console"
 
-func runFunc(f func()) {
+func RunFunc(f func()) {
 	console.Before()
 	f()
 	console.After()

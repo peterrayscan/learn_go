@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"learn/tools/testx"
 	"testing"
 )
 
@@ -12,7 +13,7 @@ func Test_BracketPriority(t *testing.T) {
 		return true
 	}
 
-	runFunc(func() {
+	testx.RunFunc(func() {
 		fmt.Println("实际情况")
 		if true || (returnTrue() == true) {
 			return
@@ -31,10 +32,11 @@ func Test_BracketPriority2(t *testing.T) {
 		return true
 	}
 
-	runFunc(func() {
+	testx.RunFunc(func() {
 		fmt.Println("实际情况")
 		if returnTrueLeft() == true || (returnTrueRight() == true) {
 			return
 		}
 	})
+
 }
