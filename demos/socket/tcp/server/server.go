@@ -24,7 +24,7 @@ func main() {
 	go quit()
 
 	for {
-		conn, err := listener.Accept() // 建立连接
+		tcpConn, err := listener.Accept() // 建立连接
 		if err != nil {
 			fmt.Println("Server: listener.Accept, failed with err: ", err)
 			fmt.Println("Server: continue wait for next connection")
@@ -33,15 +33,15 @@ func main() {
 		fmt.Println("Server: TCP connection connected now:", timex.GetNowString())
 		fmt.Println("Server: TCP connection, try to connect for", connectCount, "times")
 		connectCount++
-		go process(conn) // 启动一个goroutine处理连接
+		go process(tcpConn) // 启动一个goroutine处理连接
 	}
 }
 
 // 处理函数
-func process(conn net.Conn) {
-	defer conn.Close() // 关闭连接
+func process(tcpConn net.Conn) {
+	defer tcpConn.Close() // 关闭连接
 	for {
-		connReader := bufio.NewReader(conn)
+		connReader := bufio.NewReader(tcpConn)
 		var reqBuf [128]byte
 		n, err := connReader.Read(reqBuf[:]) // 读取数据
 		if err != nil {
@@ -59,7 +59,7 @@ func process(conn net.Conn) {
 		splitedString := strings.Split(reqString, "")        // 分割字符串
 		joinedBlankSpace := strings.Join(splitedString, " ") // 合并字符串
 
-		conn.Write([]byte("合并后的输入是: " + joinedBlankSpace)) // 发送数据
+		tcpConn.Write([]byte("合并后的输入是: " + joinedBlankSpace)) // 发送数据
 	}
 	fmt.Println("Server: TCP connection disconnected now:", timex.GetNowString())
 }

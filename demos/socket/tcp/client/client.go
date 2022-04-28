@@ -13,13 +13,13 @@ import (
 
 // Client
 func main() {
-	conn, err := net.Dial("tcp", "127.0.0.1:20000")
+	tcpConn, err := net.Dial("tcp", "127.0.0.1:20000")
 	if err != nil {
 		fmt.Println("Client: net.Dial, failed with err: ", err)
 		return
 	}
 	fmt.Println("Client: TCP connection connected now:", timex.GetNowString())
-	defer conn.Close() // 关闭连接
+	defer tcpConn.Close() // 关闭连接
 
 	inputReader := bufio.NewReader(os.Stdin)
 	for {
@@ -36,14 +36,14 @@ func main() {
 			break
 		}
 
-		_, err = conn.Write([]byte(reqData)) // 向连接, 发送请求数据
+		_, err = tcpConn.Write([]byte(reqData)) // 向连接, 发送请求数据
 		if err != nil {
 			fmt.Println("Client: connection write data, failed with err: ", err)
 			return
 		}
 
 		rspBuf := [512]byte{}
-		n, err := conn.Read(rspBuf[:])
+		n, err := tcpConn.Read(rspBuf[:])
 		if err != nil {
 			if errors.Is(err, io.EOF) {
 				fmt.Println("Client: TCP connection, Server quit already!")
