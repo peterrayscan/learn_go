@@ -1,7 +1,6 @@
 package main
 
 import (
-	"learn/playground"
 	"learn/tools/console"
 )
 
@@ -20,5 +19,5 @@ func main() {
 	// playground.ShortAssign1()
 	// playground.ShortAssign2()
 	// playground.ShortAssign3()
-	playground.StructNilValue()
+	// playground.StructNilValue()
 }

@@ -22,6 +22,7 @@ func Test_BracketPriority(t *testing.T) {
 }
 
 func Test_BracketPriority2(t *testing.T) {
+
 	returnTrueLeft := func() bool {
 		fmt.Println("左边的执行了")
 		return true
