@@ -6,6 +6,8 @@ import (
 	"testing"
 )
 
+// 判断 if true && (condition)，其中右边的括号，是否会因为 括号的优先级最高，导致先判断括号内的内容（变成了从右到左），而不是从左到右的判断
+
 func Test_BracketPriority(t *testing.T) {
 
 	returnTrue := func() bool {
