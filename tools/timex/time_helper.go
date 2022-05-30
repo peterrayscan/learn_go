@@ -57,20 +57,14 @@ func (th *TimeHelper) SetAllFormat() *TimeHelper {
 	return th
 }
 
+func (th *TimeHelper) Error() error {
+	return th.err
+}
+
 func (th *TimeHelper) GetTime() time.Time {
-	if th.err != nil {
-		return time.Time{}
-	}
 	return th.innerTime
 }
 
 func (th *TimeHelper) GetTimeString() string {
-	if th.err != nil {
-		return ""
-	}
 	return th.innerTime.Format(th.format)
-}
-
-func (th *TimeHelper) GetError() error {
-	return th.err
 }
