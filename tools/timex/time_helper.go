@@ -61,6 +61,8 @@ func (th *TimeHelper) Error() error {
 	return th.err
 }
 
+// ---------------------------------------------
+
 func (th *TimeHelper) GetTime() time.Time {
 	return th.innerTime
 }
