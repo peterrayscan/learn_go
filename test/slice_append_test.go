@@ -18,6 +18,8 @@ func Test_SliceAppend(t *testing.T) {
 		// assign to another one: from index 1
 		intSlice3 := intSlice1[1:3]
 		printSlice(intSlice3)
+
+		// conclusion: cap is related with the distance of the first item and the last one
 	})
 }
 

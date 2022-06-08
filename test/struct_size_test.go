@@ -15,7 +15,7 @@ type EmptyStruct struct{}
 
 var EmptyStructWithVar = struct{}{}
 
-func Test_(t *testing.T) {
+func Test_StructSize(t *testing.T) {
 	testx.RunFunc(func() {
 		fmt.Println("size of NormalStruct:", unsafe.Sizeof(NormalStruct{}))
 		fmt.Println("size of EmptyStruct:", unsafe.Sizeof(EmptyStruct{}))
