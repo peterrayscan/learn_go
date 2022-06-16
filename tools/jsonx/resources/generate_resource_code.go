@@ -27,8 +27,8 @@ func NewResources() {
 	var codePrefix = "action." + strings.Title(category) + "."
 
 	var names = []string{
-		"ListAllTrainingBattles",
-		"StopTrainingBattle",
+		"xxx",
+		"yyy",
 	}
 	resources := []resource{}
 	for _, name := range names {
