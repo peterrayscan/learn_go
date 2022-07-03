@@ -1,2 +1,2 @@
-### About 
-- mainly for interviews
+### Learn Go
+> keep study go while working
