@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func Test_SimpleFatory(t *testing.T) {
+func Test_SimpleFactory(t *testing.T) {
 	fruit, err := newFruit("apple seed")
 	if err != nil {
 		log.Fatal(err)
