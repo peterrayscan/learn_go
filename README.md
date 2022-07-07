@@ -1,2 +1,2 @@
 ### Learn Go
-> keep study go while working
+> keep studying go while working
